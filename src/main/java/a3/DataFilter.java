@@ -1,6 +1,7 @@
 package a3;
 
 import java.io.File;
+import java.io.PrintWriter;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.Scanner;
@@ -12,21 +13,58 @@ public class DataFilter {
 
 	public static void main(String[] args) throws Exception {
 		System.out.println(args[0] + " " + args[1] + " " + args[2]);
-		int exitCode = ToolRunner.run(new MovieDriver(), args);
-		int exitCode1 = ToolRunner.run(new UserDriver(), args);
-		String path1 = "output1/part-r-00000";
-		String path2 = "output2/part-r-00000";
+		//int exitCode = ToolRunner.run(new MovieDriver(), args);
+		//int exitCode1 = ToolRunner.run(new UserDriver(), args);
+		String path1 = "output1/output.txt";
+		String path2 = "output2/output.txt";
+		System.out.println(new File(path1).getCanonicalPath());
 		Scanner sc = new Scanner(new File(path1));
-		TreeMap<String, Double> movies = new TreeMap<String, Double>();
-		TreeMap<String, Integer> users = new TreeMap<String, Integer>();
+		TreeMap<Double, String> movies = new TreeMap<Double, String>();
+		TreeMap<Integer, String> users = new TreeMap<Integer, String>();
 		
-		while(sc.hasNextLine()){
+		while(sc.hasNext()){
 			String mID = sc.next();
 			Double rating = sc.nextDouble();
-			
-			
+			movies.put(rating, mID);
 		}
-		System.exit(exitCode1);
+		String resultMovies[] = new String[10];
+		int i = 0;
+		for(String s: movies.descendingMap().values()){
+			resultMovies[i] = s;
+			i++;
+			if(i > 9)
+				break;
+		}
+		sc.close();
+		sc = new Scanner(new File(path2));
+		while(sc.hasNext()){
+			String mID = sc.next();
+			Double rating = sc.nextDouble();
+			movies.put(rating, mID);
+		}
+		String resultUsers[] = new String[10];
+		i = 0;
+		for(String s: movies.descendingMap().values()){
+			resultUsers[i] = s;
+			i++;
+			if(i > 9)
+				break;
+		}
+		
+	    PrintWriter pr = new PrintWriter("Results");    
+
+	    pr.println("Movies");
+	    for (i=0; i< 10 ; i++)
+	    {
+	        pr.println(resultMovies[i]);
+	    }
+	    pr.println("Users");
+	    for (i=0; i< 10 ; i++)
+	    {
+	        pr.println(resultUsers[i]);
+	    }
+	    pr.close();
+		//System.exit(exitCode1);
 	}
 
 	public static <K, V extends Comparable<V>> Map<K, V> sortByValues(final Map<K, V> map) {
