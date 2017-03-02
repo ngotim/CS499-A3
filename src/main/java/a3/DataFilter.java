@@ -13,10 +13,10 @@ public class DataFilter {
 
 	public static void main(String[] args) throws Exception {
 		System.out.println(args[0] + " " + args[1] + " " + args[2]);
-		//int exitCode = ToolRunner.run(new MovieDriver(), args);
-		//int exitCode1 = ToolRunner.run(new UserDriver(), args);
-		String path1 = "output1/output.txt";
-		String path2 = "output2/output.txt";
+		int exitCode = ToolRunner.run(new MovieDriver(), args);
+		int exitCode1 = ToolRunner.run(new UserDriver(), args);
+		String path1 = "output1/part-r-00000";
+		String path2 = "output2/part-r-00000";
 		System.out.println(new File(path1).getCanonicalPath());
 		Scanner sc = new Scanner(new File(path1));
 		TreeMap<Double, String> movies = new TreeMap<Double, String>();
@@ -58,7 +58,7 @@ public class DataFilter {
 	    {
 	        pr.println(resultMovies[i]);
 	    }
-	    pr.println("Users");
+	    pr.println("\nUsers");
 	    for (i=0; i< 10 ; i++)
 	    {
 	        pr.println(resultUsers[i]);
